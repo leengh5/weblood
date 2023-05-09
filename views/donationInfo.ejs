@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Information </title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+	<style>
+		
+		.form-container {
+		width: 70%;
+		margin: 50px 100px 75px 165px;
+		padding: 30px;
+		background-color: white;
+		border: solid 2px #E5E4E2;
+		
+		}
+		label {
+		  margin: 14px;
+		  font-size: 17px;
+		}
+		
+		input, textarea {
+		  width: 90%;
+		  padding: 15px;
+		  font-size: 1rem;
+		  border: 1px solid #ccc;
+		  margin: 10px;
+		  border-radius: 5px
+		}
+		
+		button {
+		  width: 91%;
+		  height: 50px;
+		  border-radius: 5px;
+		  color: #fff;
+		  background: #C41E3A;
+		  cursor: pointer;
+		  margin: 7px 25px 10px 25px;
+		  border: 0;
+		  font-size: 15px;
+		}
+		
+		button:hover {
+		  background: #be6e6e;
+		}
+		.errors {
+		  display: block;
+		  color: red;
+		  margin-top: 5px;
+		}
+		.error {
+		  box-shadow: 0 0 15px 0 rgba(255,36,0,1);
+		}
+		
+		.slider p {
+			font-size: 26px;
+			font-weight: 600;
+			font-family: Open Sans;
+			padding-left: 30px;
+			color: black;
+			}
+			
+			.slider {
+			position: absolute;
+
+
+			width: 90%;
+			height: 40px;
+			background: #fcfcfc;
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+
+			}
+			
+		.link {
+		width: 100%;
+		text-align: center;
+		display: inline-block;
+		text-decoration: none;
+	      }
+		  
+		  
+		.map {
+		justify-content:center;
+		align-items:center;
+		margin: 16px;
+		}
+	
+	
+	select{
+		margin: 16px;
+		box-sizing: border-box;
+		list-style: none;
+		width:  90%;
+		height: 42px;
+		position: relative;
+		}
+
+	</style>
+		<script>
+			var validate = function(e) {
+				var fields = document.querySelectorAll('.form-container textarea, .form-container input[type="text"]');
+				var regEx;
+				var removeSpan;
+				var par;
+				var check = false;
+				var val;
+				var errArr = [];
+		
+				for (var i = 0; i < fields.length; i++) {
+					if (fields[i].value === "") {
+					  
+						if (fields[i].nextElementSibling.classList.contains('error')) {
+						  removeSpan = fields[i].nextElementSibling;
+						  par = fields[i].parentNode;
+						  par.removeChild(removeSpan);
+						  fields[i].nextElementSibling.innerHTML = fields[i].placeholder + " is required";
+						  fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+						  check = false;
+						  errArr.push(fields[i]);
+						}
+						fields[i].nextElementSibling.innerHTML =  fields[i].placeholder + " is required";
+						fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+						check = false;
+						errArr.push(fields[i]);
+					} else {
+		
+						// check if message and name values contain valid characters.
+						if (fields[i].id !== 'email' && fields[i].id !== 'phone') {
+							val = isValidChar(fields[i]);
+							if(val === false) {
+							  fields[i].nextElementSibling.innerHTML = "Please write with the correct formate ";
+							  fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+							  check = false;
+							  errArr.push(fields[i]);
+							} else {
+							  fields[i].nextElementSibling.innerHTML = "";
+							  fields[i].style.boxShadow = "none";
+							  check = true;
+							}
+						}
+					  
+						if(fields[i].id === 'phone') {
+						  val = isValidPhone(fields[i]);
+						  if(val === false) {
+							fields[i].nextElementSibling.innerHTML = "invalid phone number";
+							fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+							check = false;
+							errArr.push(fields[i]);
+						  } else {
+							fields[i].nextElementSibling.innerHTML = "";
+							fields[i].style.boxShadow = "none";
+							check = true;  
+						  }
+						}
+		
+						if (fields[i].id === 'email') {
+							val = isValidEmail(fields[i]);
+							if(val === false) {
+								fields[i].nextElementSibling.innerHTML = "invalid email address ";
+								fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+								check = false;
+								errArr.push(fields[i]);
+							} else {
+								fields[i].nextElementSibling.innerHTML = "";
+								fields[i].style.boxShadow = "none";
+								check = true;
+							}
+						}
+					}
+				}
+			  
+				i
+				
+				return check
+		
+				// Helper functions.
+				function isValidEmail(e) {
+					regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+					var email = e.value;
+					if (!regEx.test(email)) {
+						return false;
+					}
+				}
+		
+				function isValidChar(e) {
+					regEx = /^[a-zA-Z@#$%!?^&*()_+\-=\[\]{};':"\\|,.\/? ]*$/;
+					var value = e.value;
+					if (!regEx.test(value)) {
+						return false;
+					}
+				}
+			  
+				function isValidPhone(e) {
+				  regEx = /^[+]?[(]?[+]?\d{2,4}[)]?[-\s]?\d{2,8}[-\s]?\d{2,8}$/;
+				  var value = e.value;
+				  if(!regEx.test(value)) {
+					return false;
+				  }
+				}
+			};
+			
+			
+					var x = document.getElementById("demo");
+		
+				function getLocation() {
+				  if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(showPosition);
+				  } else { 
+					x.innerHTML = "Geolocation is not supported by this browser.";
+				  }
+				}
+		
+				function showPosition(position) {
+				  x.innerHTML = "Latitude: " + position.coords.latitude + 
+				  "<br>Longitude: " + position.coords.longitude;
+				}
+		
+		
+			
+			</script>
+</head>
+<body>
+	<%- include('./partials/header.ejs') %>
+		
+		
+	
+			<div class="form-container">	  
+			<h1 class="faq-heading" style="text-align: center">Donation Information</h1>
+				 
+		  <form name="UserHistoryForm" method="post" onsubmit = "return validate()" action="/add_donation">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" placeholder="Your name" >
+			<span class="errors"></span><br>
+
+			<label for="email">Email:</label>
+			<input type="text" placeholder="Email address" id="email" name="email" >
+			<span class="errors"></span><br>
+
+			<label for="phone">Phone Number:</label>
+			<input type="text" placeholder="Phone number" id="phone" name="phone" >
+			<span class="errors"></span><br>
+			
+			<!--
+			<label for= "date"> Date of Birth:</label>
+		    <input type= "date" placeholder= "date of birth" id="dob" name="dob">
+			<span class="errors"></span><br>
+			-->
+			
+			<label for= "age" > Age (between 18 and 100):</label>
+			<input type="number" id="age" placeholder="Age" name="age" min="18" max="100"> 
+			<span class="errors"></span><br>
+			 <br> <br>
+			
+			<label for= "gender"> Gender: </label> <br>
+			<select name= "gender" id= "gender" size="1">
+			<option value= "female"> Female </option>
+			<option value= "male"> Male </option>
+			</select>
+			<br> <br>
+			
+			<label for= "bloodtype"> Blood Type: </label> <br>
+			<select name= "bloodtype" id= "bloodtype" size="1">
+			<option value= "O+"> O+ </option>
+			<option value= "O-"> O- </option>
+			<option value= "A+"> A+ </option>
+			<option value= "A-"> A- </option>
+			<option value= "B+"> B+ </option>
+			<option value= "B-"> B- </option>
+			<option value= "AB+"> AB+ </option>
+			<option value= "AB-"> AB- </option>
+			</select> 
+			<br> 	<br> 
+  
+			
+			<label for="subject">Do you have any choronic diseases?</label>
+			<textarea placeholder="Diseases" cols="132" rows="5" name="subject" id="subject"></textarea>
+			<span class="errors"></span><br>
+			
+			<div class="map">
+			<div><br>
+			
+				  	<label for= "site"> Select the Nearest Site: </label> <br>
+					<select  name= "site" id= "site" size="1">
+					<option value="0">Central Laboratory - Blood Bank MPV8+4QF, As Sulimaniyah, Riyadh 12233</option>
+					<option value="1">Blood Donation Center - Central Laboratory, Abdul Rahman Al-Rafei, Al-Nakhil, Riyadh 12381 5500, 12381</option>
+					<option value="2">Blood donation center at the University Medical City, Ash Shaikh Hasan Ibn Abdullah Al Ash Shaikh, Street, King Khalid University Hospital, Riyadh</option>
+					<option value="3">Blood donation center, As Sulimaniyah, Riyadh 12231</option>
+					<option value="4">Blood Bank, King Fahd Medical City, Sulaymaniyah, Riyadh 12231 6481</option>
+					<option value="5">Mobile blood donation car, King Faisal Specialist Hospital, Abbas bin Abdul-Muttalib, At Taawun, Riyadh 12475 </option>
+					<option value="6">Regional Lab in Riyadh and Blood Bank,Al Imam Abd Al Aziz Ibn Muhammad Ibn Saoud, Ulaishah, Riyadh 12746</option>
+					<option value="7">Blood donation center, Al Manar, 6474 Al Ashari, 3172, Riyadh 14222</option>
+				  </select>
+		
+			</div>
+	
+			</div>
+	
+			<button type="submit" value="Submit">Submit</button>
+			<button type="reset" value="reset">Reset</button>
+			<br> <br>
+			
+		  </form>
+			</div>
+			
+			
+
+		
+		
+		
+		
+</body>
+<%- include('./partials/footer.ejs') %>
+
+</html>
