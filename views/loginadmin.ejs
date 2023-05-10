@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html>		
+	<html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title> WEBLOOD </title>
+		<!-- <link rel="stylesheet" href="css_reset.css"> -->
+		<link rel="stylesheet" href="style.css">
+		<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+		<style>
+
+			.box{
+			width: 380px;
+			height: 500px;
+			padding: 20px;
+			margin: 5% auto 0;
+			text-align: center;
+			position: relative;
+			box-sizing: border-box;
+			flex-direction: column;
+			background-color: white;
+				
+			}
+			
+			.box img{
+				width:100px;
+				margin-top:-50px ;
+				 border-radius: 50%;
+			}
+
+			.header {
+				width: 300px;
+				height: 50px;
+				text-transform: uppercase;
+				display: inline-flex;
+				padding-top: 20px;
+				padding-bottom: 0;
+				justify-content: space-between;
+			}
+
+			.header a {
+				font-size: 20px;
+				text-decoration: none;
+				color: black;
+				display: inline-flex;
+				padding-left: 25px;
+				padding-right: 25px;
+				justify-content: center;
+				cursor:pointer;
+			}
+
+			.header .active {
+				color: #be6e6e;
+				font-weight: bold;
+				position: relative;
+			}
+
+			.header .active:after {
+				position: absolute;
+				border: none;
+				content: "";
+			}
+
+			#errorMsg{
+				color:red;
+				text-align: center;
+				font-size: 15px;
+				padding-bottom: 20px;
+
+			}
+
+			.content{
+				display: inline-flex;
+				overflow: hidden;
+			}
+
+			form {
+				position: relative;
+				display: inline-flex;
+				width: 93%;
+				height: 100%;
+				flex-shrink: 0;
+				flex-direction: column;
+				transition: right 0.5s;
+			}
+
+			.login a{
+				text-decoration: none;
+				color: black;
+				font-size: 15px;
+				text-align: center;
+				cursor: pointer;
+
+			}
+
+			.extend form {
+				right: 100%;
+			}
+
+			input[type=text], input[type=password], input[type=email]{
+				display:block;
+				position: relative;
+				border: 1px solid #ccc;
+				padding: 12px;
+				margin-bottom: 15px;
+				width: 100%;
+				box-sizing: border-box;
+				font-size: 17px;
+				outline: none;
+				border-radius: 5px
+			}
+
+
+			input[type=submit]{
+				display:block;
+				position: relative;
+				padding: 12px;
+				margin-bottom: 20px;
+				width: 100%;
+				border-radius: 5px;
+				background-color:#C41E3A; ;
+				text-align:center;
+				font-size: 20px;
+				color: white;
+				cursor:pointer;
+				outline: none;
+				border: 0;
+			}
+				
+			input[type=submit]:hover{
+				 background-color:#be6e6e;
+			}
+			input[type=checkbox]{
+				background-color:#df80ff;
+			}
+			#check{
+				margin-top: 10px;
+				text-align: left;
+				color: black;
+				font-size: 15px;
+			}
+
+</style>
+	</head>
+	
+	<body>
+		<%- include('./partials/header.ejs') %>
+		
+     <div class="box">
+	 <img src="../images/Login.png">
+        <div class="page">
+            <div >
+                <h3 style="text-align: center;">Admin login</h3>
+                
+            </div>
+            <div id="errorMsg"></div>
+            <div class="content">
+                <form class="login" name="loginForm" onsubmit="return validateLoginForm()" method="POST" action="/loginadmin">
+                    <input type="email" name="email" id="email" placeholder="Email">
+                    <input type="password" name="password" id="logPassword" placeholder="Password">
+                    <div id="check">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <br><br>
+                    <input type="submit" value="Login">
+                  
+               
+            </div>
+        </div>
+    </div>
+		  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script>
+	 $(window).on("hashchange", function () {
+	if (location.hash.slice(1) == "signup") {
+		$(".page").addClass("extend");
+		$("#login").removeClass("active");
+		$("#signup").addClass("active");
+	} else {
+		$(".page").removeClass("extend");
+		$("#login").addClass("active");
+		$("#signup").removeClass("active");
+	}
+});
+$(window).trigger("hashchange");
+
+function validateLoginForm() {
+	var name = document.getElementById("logName").value;
+	var password = document.getElementById("logPassword").value;
+
+	if (name == "" || password == "") {
+		document.getElementById("errorMsg").innerHTML = "Please fill the required fields"
+		return false;
+	}
+
+	else if (password.length < 8) {
+		document.getElementById("errorMsg").innerHTML = "Your password must include atleast 8 characters"
+		return false;
+	}
+	else {
+		alert("Successfully logged in");
+		return true;
+	}
+}
+function validateSignupForm() {
+	var mail = document.getElementById("signEmail").value;
+	var name = document.getElementById("signName").value;
+	var password = document.getElementById("signPassword").value;
+
+	if (mail == "" || name == "" || password == "") {
+		document.getElementById("errorMsg").innerHTML = "Please fill the required fields"
+		return false;
+	}
+
+	else if (password.length < 8) {
+		document.getElementById("errorMsg").innerHTML = "Your password must include atleast 8 characters"
+		return false;
+	}
+	else {
+		alert("Successfully signed up");
+		return true;
+	}
+}
+	
+</script>
+
+    </body>
+	<%- include('./partials/footer.ejs') %>
+</html>
+
+

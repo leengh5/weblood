@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Information </title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+	<style>
+		
+		.form-container {
+		width: 70%;
+		margin: 50px 100px 75px 165px;
+		padding: 30px;
+		background-color: white;
+		border: solid 2px #E5E4E2;
+		
+		}
+		label {
+		  margin: 14px;
+		  font-size: 17px;
+		}
+		
+		input, textarea {
+		  width: 90%;
+		  padding: 15px;
+		  font-size: 1rem;
+		  border: 1px solid #ccc;
+		  margin: 10px;
+		  border-radius: 5px
+		}
+		
+		button {
+		  width: 91%;
+		  height: 50px;
+		  border-radius: 5px;
+		  color: #fff;
+		  background: #C41E3A;
+		  cursor: pointer;
+		  margin: 7px 25px 10px 25px;
+		  border: 0;
+		  font-size: 15px;
+		}
+		
+		button:hover {
+		  background: #be6e6e;
+		}
+		.errors {
+		  display: block;
+		  color: red;
+		  margin-top: 5px;
+		}
+		.error {
+		  box-shadow: 0 0 15px 0 rgba(255,36,0,1);
+		}
+		
+		.slider p {
+			font-size: 26px;
+			font-weight: 600;
+			font-family: Open Sans;
+			padding-left: 30px;
+			color: black;
+			}
+			
+			.slider {
+			position: absolute;
+
+
+			width: 540px;
+			height: 40px;
+			background: #fcfcfc;
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+
+			}
+			
+		.link {
+		width: 100%;
+		text-align: center;
+		display: inline-block;
+		text-decoration: none;
+	      }
+		  
+		  
+		.map {
+		justify-content:center;
+		align-items:center;
+		margin: 16px;
+		}
+	
+	
+	select{
+		margin: 16px;
+		box-sizing: border-box;
+		list-style: none;
+		width:  100%;
+		height: 42px;
+		position: relative;
+		}
+
+	</style>
+	
+</head>
+<body>
+	<%- include('./partials/header.ejs') %>
+		
+
+	
+			<div class="form-container">	  
+			<h1 class="faq-heading" style="text-align: center">Donation Information</h1>
+				 
+		  <form name="UserHistoryForm" method="post"  action="/donations/add">
+			<div id="message" >
+
+			</div>
+			<label for="name">Donation Case:</label>
+			<select name= "donationcase" id= "donationcase" size="1" required>
+				
+				<option value= "case1">select donation case</option>
+				<option value= "case1">case1</option>
+				<option value= "case2">case2</option>
+				<option value= "case3">case3</option>
+				<option value= "case4">case4</option>
+				</select>
+				<br> <br>
+			
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" placeholder="Your name" required>
+			<span class="errors"></span><br>
+
+			<label for="email">Email:</label>
+			<input type="text" placeholder="Email address" id="email" name="email" required>
+			<span class="errors"></span><br>
+
+			<label for="phone">Phone Number:</label>
+			<input type="text" placeholder="Phone number" id="phone" name="phone" required>
+			<span class="errors"></span><br>
+			
+			<!--
+			<label for= "date"> Date of Birth:</label>
+		    <input type= "date" placeholder= "date of birth" id="dob" name="dob">
+			<span class="errors"></span><br>
+			-->
+			
+			<label for= "age" > Age (between 18 and 100):</label>
+			<input type="number" id="age" placeholder="Age" name="age" min="18" max="100" required> 
+			<span class="errors"></span><br>
+			 <br> <br>
+			
+			<label for= "gender"> Gender: </label> <br>
+			<select name= "gender" id= "gender" size="1">
+			<option value= "select">select you gender</option>
+			<option value= "Male">Male</option>
+			<option value= "Female">Female</option>
+			</select>
+			<br> <br>
+			
+			<label for= "bloodtype"> Blood Type: </label> <br>
+			<select name= "bloodtype" id= "bloodtype" size="1" required>
+			<option value= "O+"> O+ </option>
+			<option value= "O-"> O- </option>
+			<option value= "A+"> A+ </option>
+			<option value= "A-"> A- </option>
+			<option value= "B+"> B+ </option>
+			<option value= "B-"> B- </option>
+			<option value= "AB+"> AB+ </option>
+			<option value= "AB-"> AB- </option>
+			</select> 
+			<br> 	<br> 
+  
+			
+			<label for="subject">Do you have any choronic diseases?</label>
+			<textarea placeholder="Diseases" cols="132" rows="5" name="subject" id="subject" ></textarea>
+			<span class="errors"></span><br>
+			
+			<div class="map">
+			<div><br>
+			
+				  	<label for= "site"> Select the Nearest Site: </label> <br>
+					<select  name= "site" id= "site" size="1">
+					<option value="0">Central Laboratory - Blood Bank MPV8+4QF, As Sulimaniyah, Riyadh 12233</option>
+					<option value="1">Blood Donation Center - Central Laboratory, Abdul Rahman Al-Rafei, Al-Nakhil, Riyadh 12381 5500, 12381</option>
+					<option value="2">Blood donation center at the University Medical City, Ash Shaikh Hasan Ibn Abdullah Al Ash Shaikh, Street, King Khalid University Hospital, Riyadh</option>
+					<option value="3">Blood donation center, As Sulimaniyah, Riyadh 12231</option>
+					<option value="4">Blood Bank, King Fahd Medical City, Sulaymaniyah, Riyadh 12231 6481</option>
+					<option value="5">Mobile blood donation car, King Faisal Specialist Hospital, Abbas bin Abdul-Muttalib, At Taawun, Riyadh 12475 </option>
+					<option value="6">Regional Lab in Riyadh and Blood Bank,Al Imam Abd Al Aziz Ibn Muhammad Ibn Saoud, Ulaishah, Riyadh 12746</option>
+					<option value="7">Blood donation center, Al Manar, 6474 Al Ashari, 3172, Riyadh 14222</option>
+				  </select>
+		
+			</div>
+	
+			</div>
+	
+			<button type="submit" value="Submit">Submit</button>
+			<button type="reset" value="reset">Reset</button>
+			<br> <br>
+			
+		  </form>
+			</div>
+			
+			
+
+		
+		
+		
+		
+</body>
+<%- include('./partials/footer.ejs') %>
+
+</html>

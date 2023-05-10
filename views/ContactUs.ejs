@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+	<style>
+		
+		.form-container {
+		width: 70%;
+		margin: 50px 100px 75px 165px;
+		padding: 30px;
+		background-color: white;
+		border: solid 2px #E5E4E2;
+		
+		}
+		label {
+		  margin: 14px;
+		  font-size: 17px;
+		}
+		
+		input, textarea {
+		  width: 90%;
+		  padding: 15px;
+		  font-size: 1rem;
+		  border: 1px solid #ccc;
+		  margin: 10px;
+		  border-radius: 5px
+		}
+		
+		button {
+		  width: 91%;
+		  height: 50px;
+		  border-radius: 5px;
+		  color: #fff;
+		  background: #C41E3A;
+		  cursor: pointer;
+		  margin: 7px 25px 10px 25px;
+		  border: 0;
+		  font-size: 15px;
+		}
+		
+		button:hover {
+		  background: #be6e6e;
+		}
+		.errors {
+		  display: block;
+		  color: red;
+		  margin-top: 5px;
+		}
+		.error {
+		  box-shadow: 0 0 15px 0 rgba(255,36,0,1);
+		}
+	</style>
+</head>
+<body>
+	
+	<%- include('./partials/header.ejs') %>
+	
+			<div class="form-container">	  
+			<h1 class="faq-heading" style="text-align: center">Contact Us</h1>
+				 
+		  <form name="contactForm"   onsubmit = "return validate()" action="#">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" placeholder="Your name" >
+			<span class="errors"></span><br>
+
+			<label for="email">Email:</label>
+			<input type="text" placeholder="Email address" id="email" name="email" >
+			<span class="errors"></span><br>
+
+			<label for="phone">Phone Number:</label>
+			<input type="text" placeholder="Phone number" id="phone" name="phone" >
+			<span class="errors"></span><br>
+			
+			<label for="subject">Message:</label>
+			<textarea placeholder="Your message" cols="132" rows="5" name="subject" id="subject"></textarea>
+			<span class="errors"></span><br>
+
+			<button type="submit" value="Submit">Submit</button>
+		  </form>
+			</div>
+	<script>
+	var validate = function(e) {
+		var fields = document.querySelectorAll('.form-container textarea, .form-container input[type="text"]');
+		var regEx;
+		var removeSpan;
+		var par;
+		var check = false;
+		var val;
+		var errArr = [];
+
+		for (var i = 0; i < fields.length; i++) {
+			if (fields[i].value === "") {
+			  
+				if (fields[i].nextElementSibling.classList.contains('error')) {
+				  removeSpan = fields[i].nextElementSibling;
+				  par = fields[i].parentNode;
+				  par.removeChild(removeSpan);
+				  fields[i].nextElementSibling.innerHTML = fields[i].placeholder + " is required";
+				  fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+				  check = false;
+				  errArr.push(fields[i]);
+				}
+				fields[i].nextElementSibling.innerHTML =  fields[i].placeholder + " is required";
+				fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+				check = false;
+				errArr.push(fields[i]);
+			} else {
+
+				// check if message and name values contain valid characters.
+				if (fields[i].id !== 'email' && fields[i].id !== 'phone') {
+					val = isValidChar(fields[i]);
+					if(val === false) {
+					  fields[i].nextElementSibling.innerHTML = "Please write with the correct formate ";
+					  fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+					  check = false;
+					  errArr.push(fields[i]);
+					} else {
+					  fields[i].nextElementSibling.innerHTML = "";
+					  fields[i].style.boxShadow = "none";
+					  check = true;
+					}
+				}
+			  
+				if(fields[i].id === 'phone') {
+				  val = isValidPhone(fields[i]);
+				  if(val === false) {
+					fields[i].nextElementSibling.innerHTML = "invalid phone number";
+					fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+					check = false;
+					errArr.push(fields[i]);
+				  } else {
+					fields[i].nextElementSibling.innerHTML = "";
+					fields[i].style.boxShadow = "none";
+					check = true;  
+				  }
+				}
+
+				if (fields[i].id === 'email') {
+					val = isValidEmail(fields[i]);
+					if(val === false) {
+						fields[i].nextElementSibling.innerHTML = "invalid email address ";
+						fields[i].style.boxShadow = "0 0 2px 1px #cc0001";
+						check = false;
+						errArr.push(fields[i]);
+					} else {
+						fields[i].nextElementSibling.innerHTML = "";
+						fields[i].style.boxShadow = "none";
+						check = true;
+					}
+				}
+			}
+		}
+	  
+		i
+		
+		return check
+
+		// Helper functions.
+		function isValidEmail(e) {
+			regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			var email = e.value;
+			if (!regEx.test(email)) {
+				return false;
+			}
+		}
+
+		function isValidChar(e) {
+			regEx = /^[a-zA-Z@#$%!?^&*()_+\-=\[\]{};':"\\|,.\/? ]*$/;
+			var value = e.value;
+			if (!regEx.test(value)) {
+				return false;
+			}
+		}
+	  
+		function isValidPhone(e) {
+		  regEx = /^[+]?[(]?[+]?\d{2,4}[)]?[-\s]?\d{2,8}[-\s]?\d{2,8}$/;
+		  var value = e.value;
+		  if(!regEx.test(value)) {
+			return false;
+		  }
+		}
+	};
+
+	</script>
+		
+		
+		
+		
+</body>
+
+<%- include('./partials/footer.ejs') %>
+</html>
